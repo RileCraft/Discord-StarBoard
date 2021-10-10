@@ -1,0 +1,10 @@
+{
+	"bot": {
+		"token": "ODU2NDE0NzIxNzAyODg3NDI0.YNAsXQ.OJ0JZdhzfQMd5GmjUakLBSXO_Og",
+		"prefix": "sb?",
+		"dev": "427109850368049162"
+	},
+	"starboard": {
+		"allowBots": "true"
+	}
+}
