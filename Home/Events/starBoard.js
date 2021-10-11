@@ -48,6 +48,7 @@ module.exports = {
                 embeds: [embed],
                 content: `<#${message.channel.id}> | ⭐ **${size}**`
             })
+            
             await db.set(`${message.guild.id}.${message.id}`, {
                 "channelID": message.channel.id,
                 "starmsgID": starb.id,
@@ -68,6 +69,8 @@ module.exports = {
                 "size": size,
                 "guildID": message.guild.id
             })
+            
         }
+        
     }
 }
