@@ -25,8 +25,8 @@ options:
 class validator {
 
     static cooldown(command, message, isInt, whInt) {
-    	(async () => {
         if (command.cooldown) {
+        	(async () => {
             if (isInt && whInt) {
                 let time = command.cooldown
                 let id = message.user.id
@@ -50,22 +50,22 @@ class validator {
                     return true
                 } else return false
             }
+            })()
         }
         return true
         coolTime = []
     }
 
-    static ownerOnly(command, message, isInt) {
+     static ownerOnly(command, message, isInt) {
         if (command.ownerOnly) {
             if (isInt) {
-                if (message.user.id === process.env.dev || message.user.id === client.config.bot.dev) return true
+                if (message.user.id === process.env.dev || message.user.id === client.config.dev) return true
                 else return false
             } else {
-                if (message.author.id === process.env.dev || message.author.id === client.config.bot.dev) return true
+                if (message.author.id === process.env.dev || message.author.id === client.config.dev) return true
                 else return false
             }
         } else return true
-        })()
     } // ownerOnly End
 
 

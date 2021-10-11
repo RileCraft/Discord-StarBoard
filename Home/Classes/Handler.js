@@ -38,13 +38,12 @@ class Handler {
     static loadEvents(client) {
         FileManager(HOME + '/Home/Events', function(err, res) {
             res.forEach(file => {
-            	const Discord = require("discord.js")
                 if (fs.statSync(file).isDirectory()) return;
                 let event = require(file)
                 eventFiles.push(file)
                 if (event.custom) event.run(client)
-                if (event.once) client.once(event.name, (...args) => event.run(...args, client, Discord))
-                else client.on(event.name, (...args) => event.run(...args, client, Discord))
+                if (event.once) client.once(event.name, (...args) => event.run(...args, client))
+                else client.on(event.name, (...args) => event.run(...args, client))
             }) // res.ForEach() End
         }) // FileManager Function End
     } // Event Handler End.
