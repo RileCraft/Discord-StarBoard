@@ -42,8 +42,8 @@ class Handler {
                 let event = require(file)
                 eventFiles.push(file)
                 if (event.custom) event.run(client)
-                if (event.once) client.once(event.name, (...args) => event.run(...args, client))
-                else client.on(event.name, (...args) => event.run(...args, client))
+                if (event.once) client.once(event.name, (...args) => event.run(...args, client, Discord))
+                else client.on(event.name, (...args) => event.run(...args, client, Discord))
             }) // res.ForEach() End
         }) // FileManager Function End
     } // Event Handler End.

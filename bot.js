@@ -1,7 +1,6 @@
 const { Collection, Client, Discord, MessageEmbed, Intents, Options} = require('discord.js')
 const chalk = require('chalk')
-const JSONDB = require("simple-json-db")
-const db = new JSONDB(HOME + "/Home/Storage/Database/StarBoard", { asyncWrite: true, syncOnWrite: true, jsonSpaces: 2 })
+const db = require('quick.db')
 require("dotenv").config()
 const client = new Client({
 	makeCache: Options.cacheEverything(),
@@ -23,7 +22,7 @@ global.HOME = __dirname
 global.db = db
 client.config = require(`${HOME}/config.json`)
 require('figlet')("DjS", (err, data) => console.log(data))
-client.login(process.env.token || client.config.token)
+client.login(process.env.token || client.config.bot.token)
 exports.client = client
 client.commands = new Collection()
 client.aliases = new Collection()
@@ -33,4 +32,3 @@ Handler.loadEvents(client)     // EVENT HANDLER
 Handler.loadButtons(client)     // BUTTON HANDLER
 Handler.loadSelectMenus(client)     // SELECTMENUS HANDLER
 Handler.getSlashCount() // TO GET SLASH COUNT.
-Handler.loadErrorManager(client)     // ERRORHANDLER HANDLER
