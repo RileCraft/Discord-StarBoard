@@ -3,7 +3,7 @@ module.exports = {
     run: async (reaction, user, client, Discord) => {
         const name = reaction.emoji.name
         const message = reaction.message
-        const size = reaction.message.reactions.cache.size
+        const size = reaction.message.reactions.cache.first().count
         const reqSize = await db.get(message.guild.id + ".starboard.requiredStars")
         const sbchannel = message.guild.channels.cache.get(await db.get(message.guild.id + ".starboard.channelID"))
         const allowBot = client.config.starboard.allowBots || process.env.allowBots
@@ -65,7 +65,7 @@ module.exports = {
                         dynamic: true
                     })
                 },
-                "size": reaction.message.reactions.cache.size,
+                "size": size,
                 "guildID": message.guild.id
             })
         }
