@@ -7,7 +7,7 @@ module.exports = {
         let size = reaction?.count 
         if (!size) size = 0 
         const reqSize = await db.get(message.guild.id + ".starboard.requiredStars")
-        const sbchannel = await message.guild.channels.fetch(await db.get(message.guild.id + ".starboard.channelID"))
+        const sbchannel = message.guild.channels.cache.get(await db.get(message.guild.id + ".starboard.channelID"))
         const allowBot = await db.get(message.guild.id + ".starboard.allowBots") ?? true
         let msg = message.content
         if (message.content === "") msg = "Visit Message"

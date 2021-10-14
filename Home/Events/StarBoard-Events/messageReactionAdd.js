@@ -2,7 +2,9 @@ module.exports = {
     name: 'messageReactionAdd',
     run: async (reaction, user, client, Discord) => {
         const name = reaction.emoji.name
+        if (name != "⭐") return;
         const message = reaction.message
+        const author = message.author
         const size = reaction.count 
         const reqSize = await db.get(message.guild.id + ".starboard.requiredStars")
         const sbchannel = message.guild.channels.cache.get(await db.get(message.guild.id + ".starboard.channelID"))
@@ -15,6 +17,7 @@ module.exports = {
         if (!reqSize) throw new Error("No required amount of stars provided in config.")
         if (!allowBot && user.bot) return;
         if (data) {
+            if (size < reqSize) return;
                     let msg = data.message.content
                     const ii = await db.get(`${message.guild.id}.${data.message.id}`)
                     const i = await sbchannel.messages.fetch(data.starmsgID)
@@ -22,7 +25,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setColor("RANDOM")
                         .setTimestamp(data.message.createdTimestamp)
-                        .setDescription(`[${msg}](https://discord.com/channels/${data.guildID}/{message.channel.id}/${data.message.id})`)
+                        .setDescription(`[${msg}](https://discord.com/channels/${data.guildID}/${message.channel.id}/${data.message.id})`)
                         .setAuthor(data.user.tag, data.user.avatar)
                         .setImage(data.message.attachment)
                     i.edit({
@@ -30,12 +33,12 @@ module.exports = {
                         content: `<#${data.channelID}> | ⭐ **${size}**`
                     })
         } else {
-            if (name !== "⭐" && size < reqSize) return;
+            if (size < reqSize) return;
             const embed = new Discord.MessageEmbed()
                 .setColor("RANDOM")
                 .setTimestamp(message.createdTimestamp)
-                .setDescription(`[${msg}](https://discord.com/channels/${message.guild.id}/{message.channel.id}/${message.id})`)
-                .setAuthor(user.tag, user.displayAvatarURL({
+                .setDescription(`[${msg}](https://discord.com/channels/${message.guild.id}/${message.channel.id}/${message.id})`)
+                .setAuthor(author.tag, author.displayAvatarURL({
                     dynamic: true
                 }))
                 .setImage(message.attachments.map(x => x.url)[0] ?? "")
@@ -56,8 +59,8 @@ module.exports = {
 
                 },
                 user: {
-                    tag: user.tag,
-                    avatar: message.author.displayAvatarURL({
+                    tag: author.tag,
+                    avatar: author.displayAvatarURL({
                         dynamic: true
                     })
                 },

@@ -8,7 +8,7 @@ module.exports = {
         const guild = client.guilds.cache.get(packet.d.guild_id)
         const channel = await guild.channels.fetch(packet.d.channel_id)
         const message = await channel.messages.fetch(packet.d.message_id)
-        const user = message.author
+        const user = client.users.cache.get(packet.d.user_id)
         const emoji = packet.d.emoji.name
         if (packet.t == 'MESSAGE_REACTION_ADD') {
             client.emit('onStarAdd', message, emoji, user, client, Discord)

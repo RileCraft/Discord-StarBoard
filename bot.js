@@ -21,7 +21,7 @@ partials: ["CHANNEL"]
 global.HOME = __dirname
 global.db = db
 client.config = require(`${HOME}/config.json`)
-require('figlet')("DjS", (err, data) => console.log(data))
+require('figlet')("StarBoard", (err, data) => console.log(data))
 client.login(process.env.token || client.config.bot.token)
 exports.client = client
 client.commands = new Collection()
