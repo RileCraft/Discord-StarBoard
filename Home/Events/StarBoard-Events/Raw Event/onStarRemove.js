@@ -1,13 +1,13 @@
 module.exports = {
-    name: 'messageReactionRemove',
-    run: async (reaction, user, client, Discord) => {
-        const message = reaction.message
+    name: "onStarRemove",
+    run: async(message, emoji, user, client, Discord) => {
         const data = await db.get(`${message.guild.id}.${message.id}`)
         if (!data) return;
+        const reaction = message.reactions.cache.get(emoji)
         let size = reaction?.count 
-        if (!size) size = 0
+        if (!size) size = 0 
         const reqSize = await db.get(message.guild.id + ".starboard.requiredStars")
-        const sbchannel = message.guild.channels.cache.get(await db.get(message.guild.id + ".starboard.channelID"))
+        const sbchannel = await message.guild.channels.fetch(await db.get(message.guild.id + ".starboard.channelID"))
         const allowBot = await db.get(message.guild.id + ".starboard.allowBots") ?? true
         let msg = message.content
         if (message.content === "") msg = "Visit Message"
@@ -21,6 +21,5 @@ module.exports = {
                    i.delete()
                    await db.delete(`${message.guild.id}.${message.id}`)
         }
-        
     }
 }

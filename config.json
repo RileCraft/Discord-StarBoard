@@ -1,10 +1,7 @@
 {
 	"bot": {
-		"token": "ODU2NDE0NzIxNzAyODg3NDI0.YNAsXQ.hZyBIJQ51hT6X_xKkOjlqPU8Oj4",
-		"prefix": "sb?",
-		"dev": "427109850368049162"
-	},
-	"starboard": {
-		"allowBots": "true"
+		"token": "TOKEN",
+		"prefix": "PREFIX",
+		"dev": "OWNER ID"
 	}
 }

@@ -1,11 +1,11 @@
 module.exports = {
-    name: 'messageReactionAdd',
-    run: async (reaction, user, client, Discord) => {
+    name: "onStarAdd",
+    run: async(message, emoji, user, client, Discord) => {
+        const reaction = message.reactions.cache.get(emoji)
         const name = reaction.emoji.name
-        const message = reaction.message
-        const size = reaction.count 
+        const size = reaction.count
         const reqSize = await db.get(message.guild.id + ".starboard.requiredStars")
-        const sbchannel = message.guild.channels.cache.get(await db.get(message.guild.id + ".starboard.channelID"))
+        const sbchannel = await message.guild.channels.cache.get(await db.get(message.guild.id + ".starboard.channelID"))
         const allowBot = await db.get(message.guild.id + ".starboard.allowBots") ?? true
         let msg = message.content
         const data = await db.get(`${message.guild.id}.${message.id}`)
@@ -23,7 +23,7 @@ module.exports = {
                         .setColor("RANDOM")
                         .setTimestamp(data.message.createdTimestamp)
                         .setDescription(`[${msg}](https://discord.com/channels/${data.guildID}/{message.channel.id}/${data.message.id})`)
-                        .setAuthor(data.user.tag, data.user.avatar)
+                        .setAuthor(data.user.tag, data.user.avatar.toString())
                         .setImage(data.message.attachment)
                     i.edit({
                         embeds: [embed],
@@ -57,7 +57,7 @@ module.exports = {
                 },
                 user: {
                     tag: user.tag,
-                    avatar: message.author.displayAvatarURL({
+                    avatar: user.displayAvatarURL({
                         dynamic: true
                     })
                 },
@@ -65,6 +65,5 @@ module.exports = {
             })
             
         }
-        
     }
 }
