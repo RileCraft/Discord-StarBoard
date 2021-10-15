@@ -1,5 +1,6 @@
 module.exports = {
     name: 'messageReactionRemove',
+    clientPermissions: ["MANAGE_MESSAGES"],
     run: async (reaction, user, client, Discord) => {
         const message = reaction.message
         const data = await db.get(`${message.guild.id}.${message.id}`)
