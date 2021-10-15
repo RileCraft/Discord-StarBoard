@@ -1,5 +1,6 @@
 module.exports = {
     name: "raw",
+    clientPermissions: ["MANAGE_MESSAGES"],
     run: async(packet) => {
         if (!["MESSAGE_REACTION_ADD","MESSAGE_REACTION_REMOVE"].some(x => x.includes(packet.t))) return;
         const { client } = require(HOME + "/bot")
