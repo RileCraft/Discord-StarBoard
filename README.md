@@ -18,3 +18,23 @@ Welcome to my another project! This is a template for having starboard in multip
 * Fill the details in either of the files.
 * Make sure to use NodeJS V16.
 * To start the setup of the starboard for the guild, run the command `(your set prefix)setup` and then fill the details as it asks you.
+
+# Migration to quickmongo
+If you already started using starboard using `quick.db` but then want to use `quickmongo` without losing data then do this.
+* Upgrade or downgrade to `quickmongo V3.0.2` **Important**
+* Eval this code.
+```js
+const db = require("quick.db");
+const { Database } = require("quickmongo");
+const mongo = new Database("Put Your MongoDB URI");
+
+function importData() {
+    const data = db.all();
+    mongo.import(data).then(() => {
+        console.log("Successfully imported data!");
+    });    
+}
+
+mongo.on("ready", () => importData());
+```
+* After it sends the success message. You can start using ur mongodb for the bot. The database is already used with async/await, so you don't have to do anything.
