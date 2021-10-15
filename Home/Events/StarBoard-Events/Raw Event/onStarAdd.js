@@ -1,5 +1,6 @@
 module.exports = {
     name: "onStarAdd",
+    clientPermissions: ["MANAGE_MESSAGES"],
     run: async(message, emoji, user, client, Discord) => {
         const reaction = message.reactions.cache.get(emoji)
         const name = reaction.emoji.name
@@ -25,7 +26,7 @@ module.exports = {
                     const embed = new Discord.MessageEmbed()
                         .setColor("RANDOM")
                         .setTimestamp(data.message.createdTimestamp)
-                        .setDescription(`[${msg}](https://discord.com/channels/${data.guildID}/${message.channel.id}/${data.message.id})`)
+                        .setDescription(`[${msg}](https://discord.com/channels/${data.guildID}/${data.channelID}/${data.message.id})`)
                         .setAuthor(data.user.tag, data.user.avatar.toString())
                         .setImage(data.message.attachment)
                     i.edit({
