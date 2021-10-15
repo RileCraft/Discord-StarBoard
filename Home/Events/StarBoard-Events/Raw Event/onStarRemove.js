@@ -1,5 +1,6 @@
 module.exports = {
     name: "onStarRemove",
+    clientPermissions: ["MANAGE_MESSAGES"],
     run: async(message, emoji, user, client, Discord) => {
         const data = await db.get(`${message.guild.id}.${message.id}`)
         if (!data) return;
