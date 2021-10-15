@@ -10,7 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@discordjs/voice": "^0.6.0",
     "chalk": "^4.1.2",
     "figlet": "^1.5.2",
     "quick.db": "^7.1.3",
